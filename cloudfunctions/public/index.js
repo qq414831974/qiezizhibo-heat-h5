@@ -34,7 +34,7 @@ async function getUrlScheme(param) {
         },
         // 如果想不过期则置为 false，并可以存到数据库
         isExpire: false,
-        // 一分钟有效期
-        expireTime: parseInt(Date.now() / 1000 + 60),
+        // 十分钟有效期
+        expireTime: parseInt(Date.now() / 1000 + 600),
     })
 }
