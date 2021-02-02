@@ -1,0 +1,2137 @@
+<html>
+<head>
+    <title>茄子TV</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="茄子TV">
+    <meta property="og:description" content="茄子TV">
+    <meta itemprop="name" content="茄子TV"/>
+    <meta itemprop="description" content="茄子TV"/>
+    <meta itemprop="image"
+          content="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png"/>
+    <meta property="og:image"
+          content="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png"/>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <script>
+        window.onerror = e => {
+            console.error(e)
+            alert('发生错误' + e)
+        }
+    </script>
+    <link rel="shortcut icon"
+          href="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png">
+    <!-- weui 样式 -->
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css"></link>
+    <!-- 调试用的移动端 console -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script> -->
+    <!-- <script>eruda.init();</script> -->
+    <!-- 公众号 JSSDK -->
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <!-- 云开发 Web SDK -->
+    <script src="https://res.wx.qq.com/open/js/cloudbase/1.1.0/cloud.js"></script>
+    <!-- jquery -->
+    <script src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/jquery-1.7.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
+    <script src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/js/NativeShare.js"></script>
+    <script>
+        function docReady(fn) {
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                fn()
+            } else {
+                document.addEventListener('DOMContentLoaded', fn);
+            }
+        }
+
+        docReady(async function () {
+            initView();
+            var ua = navigator.userAgent.toLowerCase()
+            var isWXWork = ua.match(/wxwork/i) == 'wxwork'
+            var isWeixin = !isWXWork && ua.match(/micromessenger/i) == 'micromessenger'
+            var isSafari = ua.match(/safari/i) == 'safari'
+            var isMobile = false
+            var isDesktop = false
+            if (navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|IEMobile)/i)) {
+                isMobile = true
+            } else {
+                isDesktop = true
+            }
+            // var shareGuideContent = $("#share-guide-content");
+            // if (isSafari && !isWeixin) {
+            //     shareGuideContent.css("height","100%")
+            //     shareGuideContent.append(`<div class="heat-footer-right__button-wrapper" style="width: 50%;position:absolute;top:50%;left:50%;transform: translate(-50%,-50%)" onclick="hideGuideModal()">
+            //         <button class="heat-footer-right__button"></button>
+            //         <div class="heat-footer-right__button-text">我知道了</div>
+            //     </div>`)
+            //     shareGuideContent.append(`<img class="modal__container-guide-safari" src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/guide.png" alt="guide">`)
+            // } else if (isWeixin) {
+            //     shareGuideContent.append(`<img class="modal__container-guide-wechat" src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/guide.png" alt="guide">`)
+            //     shareGuideContent.append(`<div class="heat-footer-right__button-wrapper" style="width: 50%" onclick="hideGuideModal()">
+            //         <button class="heat-footer-right__button"></button>
+            //         <div class="heat-footer-right__button-text">我知道了</div>
+            //     </div>`)
+            // }
+            if (true) {
+                var pageHeader = document.getElementById('page-header');
+                pageHeader.classList.add('hidden');
+                var heatScrollView = document.getElementById('heat-scroll-view');
+                heatScrollView.classList.remove("heat-scroll-view");
+                heatScrollView.classList.add("heat-scroll-view-wechat");
+
+                var containerEl = document.getElementById('wechat-web-container');
+                var containerEl2 = document.getElementById('wechat-web-container2');
+                containerEl.classList.remove('hidden');
+                containerEl2.classList.remove('hidden');
+                // var launchBtn = document.getElementById('launch-btn');
+                // var launchBtn2 = document.getElementById('launch-btn2');
+                // var page = getMiniprogramPage();
+                // launchBtn.setAttribute("path", page);
+                // launchBtn.addEventListener('ready', function (e) {
+                //     console.log('开放标签 ready');
+                //     alert("开放标签 ready");
+                // });
+                // launchBtn.addEventListener('launch', function (e) {
+                //     console.log('开放标签 success');
+                //     alert("开放标签 success");
+                // });
+                // launchBtn.addEventListener('error', function (e) {
+                //     console.log('开放标签 fail', e.detail);
+                //     alert("开放标签 fail");
+                //     alert(e.detail);
+                // });
+                // launchBtn2.setAttribute("path", page);
+                // launchBtn2.addEventListener('ready', function (e) {
+                //     console.log('开放标签 ready');
+                // });
+                // launchBtn2.addEventListener('launch', function (e) {
+                //     console.log('开放标签 success');
+                // });
+                // launchBtn2.addEventListener('error', function (e) {
+                //     console.log('开放标签 fail', e.detail);
+                // });
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-system/system/wx/mp/jsapi",
+                    dataType: "json",
+                    data: {url: encodeURIComponent(location.href.split('#')[0])},
+                    success: function (res) {
+                        if (res && res.data) {
+                            wx.config({
+                                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                                appId: res.data.appId, // 必填，公众号的唯一标识
+                                timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+                                nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+                                signature: res.data.signature,// 必填，签名
+                                jsApiList: ["updateAppMessageShareData", "updateTimelineShareData"],
+                                // openTagList: ["wx-open-launch-weapp"], // 填入打开小程序的开放标签名
+                            });
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+            } else if (isDesktop) {
+                // 在 pc 上则给提示引导到手机端打开
+                var disableModal = document.getElementById('disable-modal')
+                disableModal.classList.add('modal-active')
+            } else {
+                var containerEl = document.getElementById('public-web-container')
+                var containerEl2 = document.getElementById('public-web-container2')
+                containerEl.classList.remove('hidden')
+                containerEl2.classList.remove('hidden')
+                var c = new cloud.Cloud({
+                    // 必填，表示是未登录模式
+                    identityless: true,
+                    // 资源方 AppID
+                    resourceAppid: 'wxda885edb9daf0c9d', // <!-- replace -->
+                    // 资源方环境 ID
+                    resourceEnv: 'qiezizhibo-9gdgmnaw73c80abe', // <!-- replace -->
+                })
+                await c.init()
+                window.c = c
+
+                // try {
+                //     await openWeapp(() => {
+                //         jumpCompelete()
+                //     })
+                // } catch (e) {
+                //         jumpCompelete()
+                //     throw e
+                // }
+            }
+            initData();
+        })
+
+        async function openWeapp(onBeforeJump) {
+            jumpStart()
+            var param = getMiniprogramParam();
+            var c = window.c
+            var res = await c.callFunction({
+                name: 'public',
+                data: {
+                    action: 'getUrlScheme',
+                    param: param,
+                },
+            })
+            console.warn(res)
+            if (onBeforeJump) {
+                onBeforeJump()
+            }
+            location.href = res.result.openlink
+        }
+
+        function jumpStart() {
+            var buttonEl = document.getElementById('public-web-jump-button')
+            var buttonLoadingEl = document.getElementById('public-web-jump-button-loading')
+            var buttonTextEl = document.getElementById('public-web-jump-button-text')
+            buttonEl.classList.add('weui-btn_loading')
+            buttonLoadingEl.classList.remove('hidden')
+            buttonTextEl.innerHTML = "跳转中";
+
+            var buttonEl2 = document.getElementById('public-web-jump-button2')
+            var buttonLoadingEl2 = document.getElementById('public-web-jump-button-loading2')
+            var buttonTextEl2 = document.getElementById('public-web-jump-button-text2')
+            buttonEl2.classList.add('weui-btn_loading')
+            buttonLoadingEl2.classList.remove('hidden')
+            buttonTextEl2.innerHTML = "跳转中";
+        }
+
+        function jumpCompelete() {
+            var buttonEl = document.getElementById('public-web-jump-button')
+            var buttonLoadingEl = document.getElementById('public-web-jump-button-loading')
+            var buttonTextEl = document.getElementById('public-web-jump-button-text')
+            buttonEl.classList.remove('weui-btn_loading')
+            buttonLoadingEl.classList.add('hidden')
+            buttonTextEl.innerHTML = "点赞";
+
+            var buttonEl2 = document.getElementById('public-web-jump-button2')
+            var buttonLoadingEl2 = document.getElementById('public-web-jump-button-loading2')
+            var buttonTextEl2 = document.getElementById('public-web-jump-button-text2')
+            buttonEl2.classList.remove('weui-btn_loading')
+            buttonLoadingEl2.classList.add('hidden')
+            buttonTextEl2.innerHTML = "前往茄子TV小程序";
+        }
+
+        function showJumpModal() {
+            toJumpPage();
+            // var jumpModal = document.getElementById('jump-modal')
+            // jumpModal.classList.add('modal-active')
+        }
+
+        function hideJumpModal() {
+            var jumpModal = document.getElementById('jump-modal')
+            jumpModal.classList.remove('modal-active')
+        }
+
+        function showGuideModal(type) {
+            var ua = navigator.userAgent.toLowerCase()
+            var isWXWork = ua.match(/wxwork/i) == 'wxwork'
+            var isWeixin = !isWXWork && ua.match(/micromessenger/i) == 'micromessenger'
+            if (isWeixin) {
+                var guideModal = document.getElementById('share-guide')
+                guideModal.classList.add('modal-active')
+            } else {
+                call(type);
+            }
+        }
+
+        function hideGuideModal() {
+            var guideModal = document.getElementById('share-guide')
+            guideModal.classList.remove('modal-active')
+        }
+
+        function toJumpPage() {
+            var leagueId = getQueryVariable();
+            location.href = "http://qiezizhibo-9gdgmnaw73c80abe-1304886248.tcloudbaseapp.com?leagueId=" + leagueId;
+        }
+    </script>
+    <script>
+        function initView() {
+        }
+
+        function initData() {
+            getLeagueInfo();
+        }
+
+        function getQueryVariable() {
+            var str = location.href
+            var num = str.indexOf("#");
+            str = str.substr(num + 1);
+            if (num < 0) {
+                return undefined;
+            }
+            if (str) {
+                try {
+                    str = Base64.decode(str);
+                } catch (e) {
+                    return undefined;
+                }
+            }
+            return str;
+        }
+
+        function getMiniprogramParam() {
+            var leagueId = getQueryVariable();
+            if (leagueId) {
+                return {url: "/pages/home/home", page: "leagueManager", id: leagueId};
+            }
+            return {url: "/pages/home/home"};
+        }
+
+        function getMiniprogramPage() {
+            var param = getMiniprogramParam();
+            var url = "/pages/home/home";
+            if (param && param.url) {
+                url = param.url;
+                if (param.page && param.id) {
+                    url = url + "?id=" + param.id + "&page=" + param.page;
+                } else if (param.page) {
+                    url = url + "?page=" + param.page;
+                }
+            }
+            return url;
+        }
+
+        function getLeagueInfo() {
+            var leagueId = getQueryVariable();
+            if (leagueId) {
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/league/" + leagueId, success: function (res) {
+                        if (res && res.data) {
+                            var leagueData = res.data;
+                            var leagueHeadImgEl = document.getElementById('league-headImg')
+                            var leagueNameEl = document.getElementById('league-name')
+                            var heatName = "【人气评选活动】";
+                            var heatHeadImg = "";
+                            if (leagueData.headImg) {
+                                leagueHeadImgEl.setAttribute("src", leagueData.headImg);
+                                heatHeadImg = leagueData.headImg;
+                            } else {
+                                heatHeadImg = "https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png";
+                            }
+                            if (leagueData.shortname) {
+                                leagueNameEl.innerHTML = leagueData.shortname;
+                                heatName = "【人气评选活动】" + leagueData.shortname;
+                            } else if (leagueData.name) {
+                                leagueNameEl.innerHTML = leagueData.name;
+                                heatName = "【人气评选活动】" + leagueData.name;
+                            }
+                            getLeagueHeatInfo(leagueData);
+                            $.ajax({
+                                url: "https://www.qiezizhibo.com/service-system/system/share/sentence",
+                                success: function (shareSentenceRes) {
+                                    if (shareSentenceRes && shareSentenceRes.data) {
+                                        var shareSentence = random_weight(shareSentenceRes.data.filter(value => value.type === 1).map(value => {
+                                            return {...value, weight: value.weight + "%"}
+                                        }));
+                                        var shareSentenceText = shareSentence.sentence;
+                                        initShareDate(heatName, heatHeadImg, shareSentenceText)
+                                    } else {
+                                        initShareDate(heatName, heatHeadImg, heatName)
+                                    }
+                                },
+                                fail: function () {
+                                    initShareDate(heatName, heatHeadImg, heatName)
+                                }
+                            });
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+            } else {
+                console.log('参数错误')
+            }
+        }
+
+        function getLeagueHeatInfo(league) {
+            var leagueId = getQueryVariable();
+            if (leagueId) {
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/heat/league?leagueId=" + leagueId,
+                    success: function (res) {
+                        if (res && res.data) {
+                            var heatData = res.data;
+                            var leagueTeamEl = document.getElementById('league-team')
+                            var leaguePlayerEl = document.getElementById('league-player')
+                            var searchInputEl = document.getElementById('search-bar-input')
+                            var heatStartTime = getHeatStartTime(heatData, league);
+                            var heatEndTime = getHeatEndTime(heatData, league);
+                            startCountDown(heatStartTime, heatEndTime)
+                            //球队pk
+                            if (heatData.type == 3) {
+                                leagueTeamEl.classList.remove('hidden')
+                                leaguePlayerEl.classList.add('hidden')
+                                searchInputEl.setAttribute("placeholder", "输入名字查找球队");
+                                getTeamHeatInfo();
+                                $('#search-bar-input').bind("keydown", function (e) {
+                                    var evt = window.event || e;
+                                    if (evt.keyCode == 13) {
+                                        getTeamHeatInfo();
+                                    }
+                                });
+                                //球员pk
+                            } else if (heatData.type == 2) {
+                                leagueTeamEl.classList.add('hidden')
+                                leaguePlayerEl.classList.remove('hidden')
+                                searchInputEl.setAttribute("placeholder", "输入姓名/序号查找球员");
+                                getPlayerHeatInfo();
+                                $('#search-bar-input').bind("keydown", function (e) {
+                                    var evt = window.event || e;
+                                    if (evt.keyCode == 13) {
+                                        getPlayerHeatInfo();
+                                    }
+                                });
+                                $("#heat-scroll-view").bind("scroll", function () {
+                                    var heatScrollView = $("#heat-scroll-view");
+                                    var leaguePlayerView = $("#league-player");
+                                    var scrollTop = heatScrollView.scrollTop();
+                                    var scrollHeight = leaguePlayerView.height();
+                                    var windowHeight = heatScrollView.height();
+                                    if (scrollTop + windowHeight >= scrollHeight) {
+                                        if (heatScrollView.attr('loading') === "true") {
+                                            return;
+                                        }
+                                        heatScrollView.attr('loading', "true");
+                                        var currentPage = leaguePlayerView.attr('page');
+                                        var totalPage = leaguePlayerView.attr('totalPage');
+                                        if (Number(currentPage) > Number(totalPage)) {
+                                            heatScrollView.attr('loading', "false");
+                                            return;
+                                        }
+                                        getPlayerHeatInfo_next(Number(currentPage) + 1);
+                                    }
+                                })
+                            }
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+            } else {
+                console.log('参数错误')
+            }
+        }
+
+        function getPlayerHeatInfo() {
+            var leagueId = getQueryVariable();
+            if (leagueId) {
+                var param = {leagueId: leagueId, pageSize: 40, pageNum: 1};
+                var name = $("#search-bar-input").val();
+                if (name != null && name !== "") {
+                    param.name = name;
+                }
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/heat/league/player",
+                    dataType: "json",
+                    data: param,
+                    success: function (res) {
+                        if (res && res.data) {
+                            var playerHeatData = res.data;
+                            var heatPeopleEl = document.getElementById('heat-people')
+                            heatPeopleEl.innerHTML = playerHeatData.total;
+
+                            if (playerHeatData.records) {
+                                $("#league-player").children().remove();
+                                $("#league-player").attr('page', 1);
+                                $("#league-player").attr('totalPage', playerHeatData.pages);
+                                var topHeats = getTopThreeHeat(playerHeatData.records);
+                                for (let record of playerHeatData.records) {
+                                    addPlayerHeatDOM(record, topHeats);
+                                }
+                            }
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/heat/league/player/total?leagueId=" + leagueId,
+                    dataType: "json",
+                    data: param,
+                    success: function (res) {
+                        if (res && res.data) {
+                            var totalHeatData = res.data;
+                            var heatTotalEl = document.getElementById('heat-total')
+                            heatTotalEl.innerHTML = totalHeatData;
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+            } else {
+                console.log('参数错误')
+            }
+        }
+
+        function getPlayerHeatInfo_next(pageNum) {
+            var leagueId = getQueryVariable();
+            if (leagueId) {
+                var param = {leagueId: leagueId, pageSize: 40, pageNum: pageNum};
+                var name = $("#search-bar-input").val();
+                if (name != null && name !== "") {
+                    param.name = name;
+                }
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/heat/league/player",
+                    dataType: "json",
+                    data: param,
+                    success: function (res) {
+                        if (res && res.data) {
+                            var playerHeatData = res.data;
+                            var heatPeopleEl = document.getElementById('heat-people')
+                            heatPeopleEl.innerHTML = playerHeatData.total;
+
+                            if (playerHeatData.records) {
+                                $("#league-player").attr('page', playerHeatData.current);
+                                $("#heat-scroll-view").attr('loading', "false");
+                                for (let record of playerHeatData.records) {
+                                    addPlayerHeatDOM(record, null);
+                                }
+                            }
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+            } else {
+                console.log('参数错误')
+            }
+        }
+
+        function addPlayerHeatDOM(record, topHeats) {
+            var team = record.team;
+            var player = record.player;
+            $("#league-player").append(`<div class="heat-player-grid__item" id="player-${record.id}">
+                                        <div class="heat-player-grid__item-team"><img src="${team.headImg}" alt="team"/></div>
+                                        <div class="heat-player-grid__item-img-container">
+                                            <img class="heat-player-grid__item-img" src="${player.headImg ? player.headImg : "https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/default.jpg"}" alt="player"/>
+                                            <div class="heat-player-grid__item-heat">
+                                                <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/left-support.png" alt="heat-value"/>
+                                                <span class="heat-player-grid__item-heat-value">
+                                                    ${getHeat(record)}
+                                                </span>
+                                            </div>
+                                            <div class="heat-player-grid__item-rank ${topHeats ? `heat-player-grid__item-rank-${isTopHeat(record, topHeats)}` : ""}"></div>
+                                        </div>
+                                        <div class="heat-player-grid__item-name"><span>${player.name}</span></div>
+                                        <div class="heat-player-grid__item-shirtNum"><span>${record.sequence}号</span></div>
+                                        <div class="heat-player-grid__item-popup" id="player-${record.id}-popup">
+                                            <div class="heat-player-grid__item-popup-btn-wrapper" onclick="showGuideModal('wechatFriend')" >
+                                                <button class="heat-player-grid__item-popup-btn">
+                                                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/share.png" alt="share"/>
+                                                </button>
+                                            </div>
+                                            <div class="heat-player-grid__item-popup-btn-wrapper" onclick="showGuideModal('wechatTimeline')" >
+                                                <button class="heat-player-grid__item-popup-btn">
+                                                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/moment.png" alt="moment"/>
+                                                </button>
+                                            </div>
+                                            <div class="heat-player-grid__item-popup-btn-wrapper" onclick="showJumpModal()">
+                                                <button class="heat-player-grid__item-popup-btn">
+                                                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/left-support.png" alt="support"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>`);
+            $("#player-" + record.id).bind("click", function () {
+                onPlayerClick(record);
+            })
+        }
+
+        function getTeamHeatInfo() {
+            var leagueId = getQueryVariable();
+            if (leagueId) {
+                var param = {leagueId: leagueId, pageSize: 100, pageNum: 1};
+                var name = $("#search-bar-input").val();
+                if (name != null && name !== "") {
+                    param.name = name;
+                }
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/heat/league/team",
+                    dataType: "json",
+                    data: param,
+                    success: function (res) {
+                        if (res && res.data) {
+                            var teamHeatData = res.data;
+                            var heatPeopleEl = document.getElementById('heat-people')
+                            heatPeopleEl.innerHTML = teamHeatData.total;
+
+                            if (teamHeatData.records) {
+                                $("#league-team").children().remove();
+                                var topHeats = getTopThreeHeat(teamHeatData.records);
+                                var index = 1;
+                                for (let record of teamHeatData.records) {
+                                    addTeamHeatDOM(record, index, topHeats);
+                                    index = index + 1;
+                                }
+                            }
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+                $.ajax({
+                    url: "https://www.qiezizhibo.com/service-football/heat/league/team/total?leagueId=" + leagueId,
+                    dataType: "json",
+                    data: param,
+                    success: function (res) {
+                        if (res && res.data) {
+                            var totalHeatData = res.data;
+                            var heatTotalEl = document.getElementById('heat-total')
+                            heatTotalEl.innerHTML = totalHeatData;
+                        } else {
+                            alert("连接失败")
+                        }
+                    }
+                });
+            } else {
+                console.log('参数错误')
+            }
+        }
+
+        function addTeamHeatDOM(record, index, topHeats) {
+            var team = record.team;
+            $("#league-team").append(`<div class="heat-team-list__item" id="team-${record.id}">
+                                        <div class="heat-team-list__item-rank ${topHeats ? `heat-team-list__item-rank-${isTopHeat(record, topHeats)}` : ""}">
+                                            ${isTopHeat(record, topHeats) ? "" : index + "."}
+                                        </div>
+                                        <div class="heat-team-list__item-img-container"><img src="${team.headImg}" alt="team"/></div>
+                                        <div class="heat-team-list__item-name"><span>${team.name}</span></div>
+                                        <div class="heat-team-list__item-share">
+                                            <div class="heat-player-grid__item-popup-btn-wrapper" onclick="showGuideModal('wechatFriend')">
+                                                <button class="heat-player-grid__item-popup-btn">
+                                                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/share.png" alt="share"/>
+                                                </button>
+                                            </div>
+                                            <div class="heat-player-grid__item-popup-btn-wrapper" onclick="showGuideModal('wechatTimeline')">
+                                                <button class="heat-player-grid__item-popup-btn">
+                                                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/moment.png" alt="moment"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="heat-team-list__item-heat">
+                                            <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/left-support.png" alt="support"/>
+                                            <span class="heat-team-list__item-heat-value">${getHeat(record)}</span>
+                                        </div>
+                                    </div>`);
+            $("#team-" + record.id).bind("click", function () {
+                onTeamClick(record);
+            })
+        }
+
+        function onPlayerClick(record) {
+            var id = record.id;
+            var activePlayerHeatEls = document.getElementsByClassName("heat-player-grid__item-active");
+            var activePlayerHeatPopupEls = document.getElementsByClassName("heat-player-grid__item-popup-active");
+            var playerHeatEl = document.getElementById('player-' + id);
+            var playerHeatPopupEl = document.getElementById('player-' + id + "-popup");
+            for (let activePlayerHeatEl of activePlayerHeatEls) {
+                activePlayerHeatEl.classList.remove("heat-player-grid__item-active");
+            }
+            for (let activePlayerHeatPopupEl of activePlayerHeatPopupEls) {
+                activePlayerHeatPopupEl.classList.remove("heat-player-grid__item-popup-active");
+            }
+            playerHeatEl.classList.add("heat-player-grid__item-active");
+            playerHeatPopupEl.classList.add("heat-player-grid__item-popup-active");
+
+            var currentPlayerHeatEl = document.getElementById("heat-current-player");
+            var player = record.player;
+            currentPlayerHeatEl.innerHTML = `<div class="heat-footer-left__info">
+                <div class="heat-footer-left__info-user">
+                    <img src="${player.headImg}" alt="player"/>
+                    <span>${player.name}</span>
+                    <span>(${record.sequence}号)</span>
+                </div>
+                <div class="heat-footer-left__info-heat">
+                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/left-support.png" alt="support"/>
+                    <span>${getHeat(record)}</span>
+                </div>
+            </div>`;
+        }
+
+        function onTeamClick(record) {
+            var id = record.id;
+            var activeTeamHeatEls = document.getElementsByClassName("heat-team-list__item-active");
+            var teamHeatEl = document.getElementById('team-' + id);
+            for (let activeTeamHeatEl of activeTeamHeatEls) {
+                activeTeamHeatEl.classList.remove("heat-team-list__item-active");
+            }
+            teamHeatEl.classList.add("heat-team-list__item-active");
+
+            var currentPlayerHeatEl = document.getElementById("heat-current-player");
+            var team = record.team;
+            currentPlayerHeatEl.innerHTML = `<div class="heat-footer-left__info">
+                <div class="heat-footer-left__info-user">
+                    <img src="${team.headImg}" alt="player"/>
+                    <span>${team.name}</span>
+                </div>
+                <div class="heat-footer-left__info-heat">
+                    <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/left-support.png" alt="support"/>
+                    <span>${getHeat(record)}</span>
+                </div>
+            </div>`;
+        }
+
+        function getTopThreeHeat(heatObjects) {
+            let sorted = [];
+            let index = 1;
+            for (let i = 0; i < heatObjects.length; i++) {
+                let heat = this.getHeat(heatObjects[i]);
+                if (heat == 0) {
+                    continue;
+                }
+                if (index <= 3) {
+                    if (i == 0) {
+                        index = 1;
+                        heatObjects[i].index = index;
+                        sorted.push(heatObjects[i]);
+                        continue;
+                    }
+                    let heatPre = this.getHeat(heatObjects[i - 1]);
+                    if (heat == heatPre) {
+                        heatObjects[i].index = index;
+                        sorted.push(heatObjects[i]);
+                    } else {
+                        index = index + 1;
+                        if (index <= 3) {
+                            heatObjects[i].index = index;
+                            sorted.push(heatObjects[i]);
+                        }
+                    }
+                }
+            }
+            return sorted;
+        }
+
+        function isTopHeat(heat, topHeat) {
+            if (topHeat && heat) {
+                for (let topPlayer of topHeat) {
+                    if (topPlayer.id == heat.id) {
+                        return topPlayer.index;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function getHeat(currentHeat) {
+            let heat = 0;
+            if (currentHeat) {
+                if (currentHeat.heat) {
+                    heat = heat + currentHeat.heat
+                }
+                if (currentHeat.heatBase) {
+                    heat = heat + currentHeat.heatBase
+                }
+            }
+            return heat;
+        }
+
+        function getHeatStartTime(heatRule, league) {
+            if (league && league.dateBegin && heatRule && heatRule.startInterval) {
+                var startTime = new Date(league.dateBegin)
+                startTime.setMinutes(startTime.getMinutes() + heatRule.startInterval);
+                return startTime;
+            }
+            return null
+        }
+
+        function getHeatEndTime(heatRule, league) {
+            if (league && league.dateEnd && heatRule && heatRule.endInterval) {
+                var endTime = new Date(league.dateEnd)
+                endTime.setMinutes(endTime.getMinutes() + heatRule.endInterval);
+                return endTime;
+            }
+            return null
+        }
+
+        function startCountDown(startTime, endTime) {
+            setInterval(() => {
+                if (startTime != null && endTime != null) {
+                    var nowDate = new Date().getTime();
+                    var startTime_diff = Date.parse(startTime) - nowDate;
+                    var endTime_diff = Date.parse(endTime) - nowDate;
+                    var countDownText = "";
+                    if (startTime_diff > 0) {
+                        var diff = getTimeDifference(startTime, true);
+                        if (diff) {
+                            countDownText = (diff.diffTime ? diff.diffDay + diff.diffTime : "") + "后开始PK";
+                        }
+                    } else if (startTime_diff <= 0 && endTime_diff > 0) {
+                        var diff = getTimeDifference(endTime, true);
+                        if (diff) {
+                            countDownText = "PK中 " + (diff.diffTime ? diff.diffDay + diff.diffTime : "");
+                        }
+                    } else {
+                        countDownText = "PK已结束";
+                    }
+                    var heatCountDownEl = document.getElementById('heat-countdown')
+                    heatCountDownEl.innerHTML = countDownText;
+                }
+            }, 1000)
+        }
+
+        function getTimeDifference(time, isChinese) {
+            var diff = '';
+            var diff_hour_minute_sencod = '';
+            var day = '';
+            var time_diff;
+            time_diff = Date.parse(time) - new Date().getTime(); //时间差的毫秒数
+
+            if (time_diff <= 0) {
+                return null;
+            }
+            //计算出相差天数
+            var days = Math.floor(time_diff / (24 * 3600 * 1000));
+            if (days > 0) {
+                day += days + '天';
+            }
+            //计算出小时数
+            var leave1 = time_diff % (24 * 3600 * 1000);
+            var hours = Math.floor(leave1 / (3600 * 1000));
+            var dayHours = Math.floor(leave1 / (3600 * 1000)) + (days > 0 ? days * 24 : 0);
+            if (hours > 0) {
+                // diff += hours + '小时';
+                diff += (hours < 10 ? "0" + hours.toString() : hours) + (isChinese ? '时' : ':');
+            } else {
+                if (diff !== '') {
+                    // diff += hours + '小时';
+                    diff += (hours < 10 ? "0" + hours.toString() : hours) + (isChinese ? '时' : ':');
+                }
+            }
+            if (dayHours > 0) {
+                // diff += hours + '小时';
+                diff_hour_minute_sencod += (dayHours < 10 ? "0" + dayHours.toString() : dayHours) + (isChinese ? '时' : ':');
+            } else {
+                if (diff !== '') {
+                    // diff += hours + '小时';
+                    diff_hour_minute_sencod += (dayHours < 10 ? "0" + dayHours.toString() : dayHours) + (isChinese ? '时' : ':');
+                }
+            }
+            //计算相差分钟数
+            var leave2 = leave1 % (3600 * 1000);
+            var minutes = Math.floor(leave2 / (60 * 1000));
+            if (minutes > 0) {
+                // diff += minutes + '分';
+                diff += (minutes < 10 ? "0" + minutes.toString() : minutes) + (isChinese ? '分' : ':');
+                diff_hour_minute_sencod += (minutes < 10 ? "0" + minutes.toString() : minutes) + (isChinese ? '分' : ':');
+            } else {
+                if (diff !== '') {
+                    // diff += minutes + '分';
+                    diff += (minutes < 10 ? "0" + minutes.toString() : hours) + (isChinese ? '分' : ':');
+                    diff_hour_minute_sencod += (minutes < 10 ? "0" + minutes.toString() : hours) + (isChinese ? '分' : ':');
+                }
+            }
+            //计算相差秒数
+            var leave3 = leave2 % (60 * 1000);
+            var seconds = Math.round(leave3 / 1000);
+            if (seconds > 0) {
+                // diff += seconds + '秒';
+                diff += (seconds < 10 ? "0" + seconds.toString() : seconds) + (isChinese ? '秒' : '');
+                diff_hour_minute_sencod += (seconds < 10 ? "0" + seconds.toString() : seconds) + (isChinese ? '秒' : '');
+            } else {
+                if (diff !== '') {
+                    // diff += seconds + '秒';
+                    diff += (seconds < 10 ? "0" + seconds.toString() : seconds) + (isChinese ? '秒' : '');
+                    diff_hour_minute_sencod += (seconds < 10 ? "0" + seconds.toString() : seconds) + (isChinese ? '秒' : '');
+                }
+            }
+            return {
+                diffDay: day,
+                diffTime: diff,
+                diffDayTime: diff_hour_minute_sencod,
+            };
+        }
+
+        function random_weight(arr) {
+            //参数arr元素必须含有weight属性，参考如下所示
+            //var arr=[{name:'1',weight:1.5},{name:'2',weight:2.5},{name:'3',weight:3.5}];
+            //var arr=[{name:'1',weight:'15%'},{name:'2',weight:'25%'},{name:'3',weight:'35%'}];
+            //求出最大公约数以计算缩小倍数，perMode为百分比模式
+            if (arr == null || arr.length == 0) {
+                return null;
+            }
+            let per;
+            let maxNum = 0;
+            let perMode = false;
+            //自定义Math求最小公约数方法
+            let gcd = function (a, b) {
+                let min = Math.min(a, b);
+                let max = Math.max(a, b);
+                let result = 1;
+                if (a === 0 || b === 0) {
+                    return max;
+                }
+                for (let i = min; i >= 1; i--) {
+                    if (min % i === 0 && max % i === 0) {
+                        result = i;
+                        break;
+                    }
+                }
+                return result;
+            };
+
+            //使用clone元素对象拷贝仍然会造成浪费，但是使用权重数组对应关系更省内存
+            let weight_arr = [];
+            for (let i = 0; i < arr.length; i++) {
+                if ('undefined' != typeof (arr[i].weight)) {
+                    if (arr[i].weight.toString().indexOf('%') !== -1) {
+                        per = Math.floor(arr[i].weight.toString().replace('%', ''));
+                        perMode = true;
+                    } else {
+                        per = Math.floor(arr[i].weight * 100);
+                    }
+                } else {
+                    per = 0;
+                }
+                weight_arr[i] = per;
+                maxNum = gcd(maxNum, per);
+            }
+            //数字比模式，3:5:7，其组成[0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2]
+            //百分比模式，元素所占百分比为15%，25%，35%
+            let index = [];
+            let total = 0;
+            let len = 0;
+            if (perMode) {
+                for (let i = 0; i < arr.length; i++) {
+                    //len表示存储arr下标的数据块长度，已优化至最小整数形式减小索引数组的长度
+                    len = weight_arr[i];
+                    for (let j = 0; j < len; j++) {
+                        //超过100%跳出，后面的舍弃
+                        if (total >= 100) {
+                            break;
+                        }
+                        index.push(i);
+                        total++;
+                    }
+                }
+                //使用最后一个元素补齐100%
+                while (total < 100) {
+                    index.push(arr.length - 1);
+                    total++;
+                }
+            } else {
+                for (let i = 0; i < arr.length; i++) {
+                    //len表示存储arr下标的数据块长度，已优化至最小整数形式减小索引数组的长度
+                    len = weight_arr[i] / maxNum;
+                    for (let j = 0; j < len; j++) {
+                        index.push(i);
+                    }
+                    total += len;
+                }
+            }
+            //随机数值，其值为0-11的整数，数据块根据权重分块
+            let rand = Math.floor(Math.random() * total);
+            // console.log(index);
+            // console.log(rand);
+            return arr[index[rand]];
+        }
+    </script>
+    <script>
+        var nativeShare;
+
+        function initShareDate(heatName, heatHeadImg, shareSentenceText) {
+            selfSetIcon(heatHeadImg);
+            if (heatHeadImg.endsWith("/avatar")) {
+                heatHeadImg = heatHeadImg.replace(/(.*)avatar/, '$1big_avatar');
+            }
+            $("#logo").attr("src", heatHeadImg);
+            $("meta[name='description']").attr('content', shareSentenceText);
+            $("meta[property='og:description']").attr('content', shareSentenceText);
+            $("meta[itemprop='name']").attr('content', heatName);
+            $("meta[itemprop='description']").attr('content', shareSentenceText);
+            $("meta[itemprop='image']").attr('content', heatHeadImg);
+            $("meta[property='og:image']").attr('content', heatHeadImg);
+            var ua = navigator.userAgent.toLowerCase()
+            var isWXWork = ua.match(/wxwork/i) == 'wxwork'
+            var isWeixin = !isWXWork && ua.match(/micromessenger/i) == 'micromessenger'
+            if (isWeixin) {
+                wx.ready(function () {   //需在用户可能点击分享按钮前就先调用
+                    wx.updateAppMessageShareData({
+                        title: heatName, // 分享标题
+                        desc: shareSentenceText, // 分享描述
+                        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: heatHeadImg, // 分享图标
+                        success: function () {
+                            // 设置成功
+                        }
+                    });
+                    wx.updateTimelineShareData({
+                        title: heatName, // 分享标题
+                        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: heatHeadImg, // 分享图标
+                        success: function () {
+                        }
+                    })
+                });
+            } else {
+                nativeShare = new NativeShare()
+                var shareData = {
+                    title: heatName,
+                    desc: heatName,
+                    // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
+                    link: window.location.href,
+                    // icon: heatHeadImg,
+                    // from: '茄子TV',
+                    // syncDescToTag: true,
+                    // syncIconToTag: true,
+                    // syncTitleToTag: true,
+                    // 不要过于依赖以下两个回调，很多浏览器是不支持的
+                    // success: function () {
+                    //     // alert('分享成功')
+                    // },
+                    // fail: function () {
+                    //     // alert('分享失败')
+                    // }
+                }
+                nativeShare.setShareData(shareData)
+            }
+        }
+
+        function call(command) {
+            try {
+                nativeShare && nativeShare.call(command)
+            } catch (err) {
+                // 如果不支持，你可以在这里做降级处理
+                try {
+                    nativeShare && nativeShare.call()
+                } catch (error) {
+                    var guideModal = document.getElementById('share-guide')
+                    guideModal.classList.add('modal-active')
+                }
+            }
+        }
+
+        function setTitle(title) {
+            nativeShare && nativeShare.setShareData({
+                title: title,
+            })
+        }
+
+        /**
+         * JQ  修改 網站 icon
+         * @param {Object} url 自定義 的 icon url
+         */
+        function selfSetIcon(url) {
+            var links = $('link') // 獲取所有 link 元素
+            for (var i = 0; i < links.length; i++) {	//遍歷 link 元素
+                var link = $(links[i])
+                var rel = link[0].rel;  // rel 表示 link 的類型  icon 對應 shortcut icon
+                rel = rel.toLowerCase(); // 部分網站 會 大寫. 統一轉成小寫
+                if (rel.indexOf('shortcut icon') > -1) { // 當連接中存在 shortcut icon 字眼
+                    link[0].href = url // 修改 網站icon
+                    break;
+                }
+            }
+        }
+
+    </script>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+
+        button {
+            outline: 0 !important;
+        }
+
+        button :focus {
+            outline: 0 !important;
+        }
+
+        .full {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .page-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+            height: 30px;
+            background-color: #2d8cf0;
+        }
+
+        .page-header span {
+            font-size: 14px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .league-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            background-color: #2d8cf0;
+        }
+
+        .league-header-img {
+            height: 25px;
+            width: 25px;
+            min-height: 25px;
+            min-width: 25px;
+            border-radius: 50%;
+        }
+
+        .league-header-text {
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            margin-left: 8px;
+        }
+
+        .tab-header {
+            background-color: #2d8cf0;
+            line-height: 1.3;
+            position: relative;
+            display: flex;
+            width: 100%;
+            text-align: center;
+            white-space: nowrap;
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-none;
+        }
+
+        .tab-header__item {
+            position: relative;
+            flex: 1;
+            padding: 12px;
+            color: #fff;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .tab-header__item-underline {
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1PX;
+            background-color: #6190e8;
+            -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+            transition: all .15s;
+        }
+
+        .tab-header__item-underline:after {
+            content: "";
+            width: 0;
+            height: 0;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent #FFF transparent;
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 10px)
+        }
+
+        .search-bar {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 6px 9px;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        .search-bar__input-cnt {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex: 1;
+            width: 100%;
+            height: 30px;
+            background-color: #f7f7f7;
+            border-radius: 15px;
+        }
+
+        input::-ms-input-placeholder {
+            text-align: center;
+        }
+
+        input::-webkit-input-placeholder {
+            text-align: center;
+        }
+
+        .search-bar__input {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px !important;
+            padding: 0 37px;
+            color: #000;
+            font-size: 14px !important;
+            text-align: center;
+            background-color: transparent;
+            transition: width .3s;
+            box-sizing: border-box;
+            cursor: auto;
+            text-overflow: clip;
+            overflow: hidden;
+            white-space: nowrap;
+            min-height: 1.4rem;
+            border: 0;
+            outline: 0;
+        }
+
+        .heat-header {
+            display: flex;
+            width: 100%;
+        }
+
+        .heat-header-item {
+            flex: 0 0 33.33333%;
+            -webkit-box-flex: 0;
+            max-width: 33.33333%;
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .heat-header-item__title {
+            font-size: 14px;
+            color: #2c405a;
+            white-space: nowrap;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heat-header-item__value {
+            font-size: 12px;
+            color: #777;
+            white-space: nowrap;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heat-header-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+            height: 3px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .heat-header-divider-content {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1PX;
+            background-color: #E5E5E5;
+            z-index: 100;
+        }
+
+        .heat-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            width: 100%;
+            height: fit-content;
+            align-self: center;
+            background-color: #fafbfc;
+            box-shadow: 2px 0 2px 0 rgba(0, 0, 0, .3);
+            padding: 6px 0;
+            z-index: 1000;
+        }
+
+        .heat-footer-left {
+            padding: 0 9px;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: left;
+            flex: 0 0 75%;
+            -webkit-box-flex: 0;
+            max-width: 75%;
+            width: 100%;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .heat-footer-left__heat {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            font-size: 12px;
+            font-weight: 800;
+            color: #2c405a;
+            margin-left: 12px;
+        }
+
+        .heat-footer-left__info {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .heat-footer-left__info-user {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            font-size: 12px;
+            font-weight: 800;
+            color: #2c405a;
+            margin-left: 12px;
+        }
+
+        .heat-footer-left__info-user img {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .heat-footer-left__info-user span {
+            margin-left: 3px;
+        }
+
+        .heat-footer-left__info-heat {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            font-size: 12px;
+            font-weight: 800;
+            color: #2c405a;
+            margin-left: 12px;
+        }
+
+        .heat-footer-left__info-heat img {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .heat-footer-left__info-heat span {
+            margin-left: 3px;
+        }
+
+        .heat-footer-left__share {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .heat-footer-left__share-btn-wrapper {
+            display: block;
+            width: 30px;
+            height: 100%;
+            margin: 0 0 0 5px;
+            animation: zoom ease-in-out 1s infinite;
+        }
+
+        .heat-footer-left__share-btn {
+            height: 30px;
+            width: 30px;
+            line-height: 30;
+            border-radius: 15px;
+            background-color: #fff;
+            color: #333;
+            padding: 0 !important;
+            border: 0;
+            outline: none;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, .05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 14px;
+            padding-right: 14px;
+            box-sizing: border-box;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .heat-footer-left__share-btn img {
+            width: 70%;
+            height: 70%;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .heat-footer-right {
+            padding: 0 9px;
+            flex: 0 0 25%;
+            -webkit-box-flex: 0;
+            max-width: 25%;
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .heat-footer-right__button-wrapper {
+            vertical-align: middle;
+            width: 100%;
+            max-width: 100%;
+            border-radius: 15px;
+            border-left: none;
+            border-right: none;
+            padding: 0 8px;
+            min-width: 50px;
+            height: 30px;
+            font-size: 13px;
+            line-height: 29px;
+            background-clip: border-box;
+            overflow: hidden;
+            color: #fff;
+            border: 1PX solid #6190e8;
+            background: #6190e8;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            text-align: center;
+            box-sizing: border-box;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .heat-footer-right__button {
+            position: absolute;
+            padding: 0;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            outline: 0;
+            background-color: transparent;
+            opacity: 0;
+            z-index: 1;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 14px;
+            padding-right: 14px;
+            box-sizing: border-box;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            line-height: 2.55555556;
+            border-radius: 5px;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .heat-footer-right__button-text {
+            display: inline;
+        }
+
+        .heat-scroll-view {
+            height: calc(100vh - 30px - 50px - 42px - 42px - 42px - 42px);
+            width: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .heat-scroll-view-wechat {
+            height: calc(100vh - 30px - 50px - 42px - 42px - 42px);
+            width: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .heat-player-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 33.33%);
+            grid-template-rows: auto;
+            padding: 0 20px 80px;
+            box-sizing: border-box;
+            position: relative;
+
+        }
+
+        .heat-player-grid__item {
+            position: relative;
+            padding: 9px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            height: min-content;
+        }
+
+        .heat-player-grid__item-active {
+            background-color: #ecf5fd;
+        }
+
+        .heat-player-grid__item-team {
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+
+        .heat-player-grid__item-team img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        .heat-player-grid__item-img-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .heat-player-grid__item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .heat-player-grid__item-heat {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #fff;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, .3);
+            padding: 0 5px;
+        }
+
+        .heat-player-grid__item-heat img {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .heat-player-grid__item-heat-value {
+            margin-left: 3px;
+        }
+
+        .heat-player-grid__item-rank {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .heat-player-grid__item-rank-1 {
+            background: url("https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/medal.png");
+            background-size: 100% 100%;
+        }
+
+        .heat-player-grid__item-rank-2 {
+            background: url("https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/medal-2.png");
+            background-size: 100% 100%;
+        }
+
+        .heat-player-grid__item-rank-3 {
+            background: url("https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/medal-3.png");
+            background-size: 100% 100%;
+        }
+
+        .heat-player-grid__item-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 12px;
+            color: #2c405a;
+        }
+
+        .heat-player-grid__item-shirtNum {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 10px;
+            color: #666;
+        }
+
+        .heat-player-grid__item-popup {
+            display: none;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 30px;
+            width: 100%;
+            background-color: #2d8cf0;
+            z-index: 810;
+            border-radius: 10px;
+            -webkit-animation: fadeInDown .3s;
+            animation: fadeInDown .3s;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heat-player-grid__item-popup-active {
+            display: flex;
+        }
+
+        .heat-player-grid__item-popup-btn-wrapper {
+            display: block;
+            width: 30px;
+            height: 100%;
+            margin: 0 5px;
+            animation: zoom ease-in-out 1s infinite;
+        }
+
+        .heat-player-grid__item-popup-btn {
+            height: 30px;
+            width: 30px;
+            line-height: 30;
+            border-radius: 15px;
+            background-color: #fff;
+            color: #333;
+            padding: 0 !important;
+            border: 0;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, .05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 14px;
+            padding-right: 14px;
+            box-sizing: border-box;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .heat-player-grid__item-popup-btn img {
+            width: 70%;
+            height: 70%;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .heat-team-list {
+            display: block;
+            padding: 0 0 80px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .heat-team-list__item {
+            position: relative;
+            padding: 9px;
+            box-sizing: border-box;
+            height: min-content;
+            display: flex;
+            border-bottom: 1px solid #f6fafe;
+            box-shadow: 2px 1px 1px #ecf5fd;
+            border-radius: 5px;
+        }
+
+        .heat-team-list__item-active {
+            background-color: #ecf5fd;
+        }
+
+        .heat-team-list__item-rank {
+            display: flex;
+            width: 20px;
+            height: 20px;
+            margin: auto 0;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            color: #666;
+        }
+
+        .heat-team-list__item-rank-1 {
+            background: url("https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/medal.png");
+            background-size: 100% 100%;
+        }
+
+        .heat-team-list__item-rank-2 {
+            background: url("https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/medal-2.png");
+            background-size: 100% 100%;
+        }
+
+        .heat-team-list__item-rank-3 {
+            background: url("https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/medal-3.png");
+            background-size: 100% 100%;
+        }
+
+        .heat-team-list__item-img-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heat-team-list__item-img-container img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .heat-team-list__item-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #2c405a;
+            margin: 0 10px;
+        }
+
+        .heat-team-list__item-share {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-left: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .heat-team-list__item-heat {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+            padding: 0 5px;
+            margin-left: auto;
+        }
+
+        .heat-team-list__item-heat img {
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .heat-team-list__item-heat-value {
+            margin-left: 3px;
+        }
+
+        .modal {
+            display: block;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            transition: visibility 200ms ease-in;
+            z-index: 1000;
+        }
+
+        .modal-active {
+            visibility: visible !important;
+        }
+
+        .modal__overlay {
+            display: block;
+            opacity: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: rgba(0, 0, 0, .3);
+            transition: opacity 200ms ease-in;
+        }
+
+        .modal__container {
+            display: block;
+            opacity: 1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 270px;
+            border-radius: 6px;
+            background-color: #fff;
+            overflow: hidden;
+            transition: opacity 200ms ease-in;
+        }
+
+        .modal__container-guide {
+            display: block;
+            opacity: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: transparent;
+            overflow: hidden;
+            transition: opacity 200ms ease-in;
+        }
+
+        .modal__container-guide-wechat {
+            width: 80%;
+            float: right;
+            height: 50vh;
+        }
+
+        .modal__container-guide-safari {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .modal__content {
+            display: block;
+            padding: 16px 12px;
+            min-height: 90px;
+            max-height: 420px;
+            color: #333;
+            font-size: 14px;
+            box-sizing: content-box;
+            width: auto;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .jump-modal-logo {
+            display: block;
+            border-radius: 50%;
+            background-clip: border-box;
+            overflow: hidden;
+            width: 50px;
+            height: 50px;
+            color: #fff;
+            font-size: 20px;
+            line-height: 50px;
+            text-align: center;
+            background: #e5e5e5;
+            box-shadow: 0 0 25px 0 rgba(0, 0, 0, .05);
+        }
+
+        .jump-modal-logo img {
+            display: inline-block;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        .jump-modal-hint {
+            font-size: 14px;
+            margin-top: 6px;
+            color: #666;
+        }
+
+        .fab {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            width: 56px;
+            height: 56px;
+            color: transparent;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            background: 0 0;
+            box-sizing: border-box;
+            border-radius: 3px;
+        }
+
+        .fab img {
+            border-radius: 3px;
+            height: 100%;
+            min-height: 25px;
+            width: 100%;
+            min-width: 25px;
+            background: 0 0;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .fab-reward {
+            position: fixed;
+            bottom: 35%;
+            right: 8px;
+            -webkit-animation: zoom ease-in-out 1s infinite;
+            animation: zoom ease-in-out 1s infinite;
+        }
+
+        .fab-rank {
+            position: fixed;
+            bottom: 20%;
+            right: 8px;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                -webkit-transform: translate3d(0, -20%, 0) scale(0.5);
+                -webkit-transform: translate3d(0, -20%, 0) scale(0.5);
+                transform: translate3d(0, -20%, 0) scale(0.5);
+                transform: translate3d(0, -20%, 0) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoom {
+            0% {
+                transform: scale(1);
+            }
+
+            20% {
+                transform: scale(0.9);
+            }
+
+            40% {
+                transform: scale(1.1);
+            }
+
+            60% {
+                transform: scale(0.9);
+            }
+
+            80% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="page full">
+    <div>
+        <img id="logo" style='height:0;width:0;overflow:hidden;display:block;'
+             src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png" alt="logo"/>
+    </div>
+    <div id="page-header" class="page-header">
+        <span>茄子TV</span>
+    </div>
+    <div class="league-header">
+        <img id="league-headImg" class="league-header-img"
+             src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png"
+             alt="联赛logo"/>
+        <span id="league-name" class="league-header-text">联赛</span>
+    </div>
+    <div class="tab-header" onclick="showJumpModal()">
+        <div class="tab-header__item">规程</div>
+        <div class="tab-header__item">赛程</div>
+        <div class="tab-header__item">人气pk
+            <div class="tab-header__item-underline"></div>
+        </div>
+        <div class="tab-header__item">积分榜</div>
+        <div class="tab-header__item">射手榜</div>
+    </div>
+    <div class="search-bar">
+        <div class="search-bar__input-cnt">
+            <input id="search-bar-input" class="search-bar__input" type="search" name="search-bar-input" maxlength="140"
+                   placeholder="搜索"/>
+        </div>
+    </div>
+    <div class="heat-header">
+        <div class="heat-header-item">
+            <div class="heat-header-item__title">参赛选手</div>
+            <div id="heat-people" class="heat-header-item__value">1</div>
+        </div>
+        <div class="heat-header-item">
+            <div class="heat-header-item__title">累计人气值</div>
+            <div id="heat-total" class="heat-header-item__value">88888</div>
+        </div>
+        <div class="heat-header-item">
+            <div class="heat-header-item__title">活动结束倒计时</div>
+            <div id="heat-countdown" class="heat-header-item__value">PK中 00时00分00秒</div>
+        </div>
+    </div>
+    <div class="heat-header-divider">
+        <div class="heat-header-divider-content"></div>
+    </div>
+    <div id="heat-scroll-view" class="heat-scroll-view">
+        <div id="league-team" class="heat-team-list">
+
+        </div>
+        <div id="league-player" class="heat-player-grid">
+
+        </div>
+    </div>
+    <div class="heat-footer">
+        <div class="heat-footer-left">
+            <div id="heat-current-player" class="heat-footer-left__heat">请选择球员</div>
+            <div class="heat-footer-left__share">
+                <div class="heat-footer-left__share-btn-wrapper" onclick="showGuideModal('wechatFriend')">
+                    <button class="heat-footer-left__share-btn">
+                        <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/share.png"
+                             alt="share"/>
+                    </button>
+                </div>
+                <div class="heat-footer-left__share-btn-wrapper" onclick="showGuideModal('wechatTimeline')">
+                    <button class="heat-footer-left__share-btn">
+                        <img src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/moment.png"
+                             alt="moment"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="heat-footer-right">
+            <div id="public-web-container" class="heat-footer-right__button-wrapper hidden"
+                 onclick="openWeapp(jumpCompelete)">
+                <button id="public-web-jump-button" class="heat-footer-right__button"></button>
+                <span id="public-web-jump-button-loading"
+                      class="weui-primary-loading weui-primary-loading_transparent hidden" style="margin-top: 6px">
+                    <i class="weui-primary-loading__dot"></i>
+                </span>
+                <div id="public-web-jump-button-text" class="heat-footer-right__button-text">点赞</div>
+            </div>
+            <div id="wechat-web-container" class="heat-footer-right__button-wrapper hidden" onclick="toJumpPage()">
+                <!--                <wx-open-launch-weapp id="launch-btn" username="gh_dde48ecc9e86" path="/pages/home/home">-->
+                <!--                    <script type="text/wxtag-template">-->
+                <style>.wxbtn {
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    font-size: 13px;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-left: 14px;
+                    padding-right: 14px;
+                    border: none;
+                    color: #fff;
+                    background-color: transparent;
+                    text-decoration: none;
+                    line-height: 29px;
+                }</style>
+                <button class="wxbtn">
+                    点赞
+                </button>
+                <!--                    </script>-->
+                <!--                </wx-open-launch-weapp>-->
+            </div>
+        </div>
+    </div>
+    <div id="jump-modal" class="modal">
+        <div class="modal__overlay" onclick="hideJumpModal()"></div>
+        <div class="modal__container">
+            <div class="modal__content">
+                <div class="center">
+                    <div class="jump-modal-logo"><img
+                            src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png"
+                            alt="logo"/></div>
+                </div>
+                <span class="center jump-modal-hint">请前往茄子TV小程序操作</span>
+                <div style="margin-top: 10px">
+                    <div id="public-web-container2" class="heat-footer-right__button-wrapper hidden"
+                         onclick="openWeapp(jumpCompelete)">
+                        <button id="public-web-jump-button2" class="heat-footer-right__button"></button>
+                        <span id="public-web-jump-button-loading2"
+                              class="weui-primary-loading weui-primary-loading_transparent hidden"
+                              style="margin-top: 6px">
+                            <i class="weui-primary-loading__dot"></i>
+                        </span>
+                        <div id="public-web-jump-button-text2" class="heat-footer-right__button-text">前往茄子TV小程序</div>
+                    </div>
+                    <div id="wechat-web-container2" class="heat-footer-right__button-wrapper hidden"
+                         onclick="toJumpPage()">
+                        <!--                        <wx-open-launch-weapp id="launch-btn2" username="gh_dde48ecc9e86" path="/pages/home/home">-->
+                        <!--                            <script type="text/wxtag-template">-->
+                        <style>.wxbtn2 {
+                            width: 100%;
+                            height: 100%;
+                            text-align: center;
+                            font-size: 13px;
+                            display: block;
+                            margin-left: auto;
+                            margin-right: auto;
+                            padding-left: 14px;
+                            padding-right: 14px;
+                            border: none;
+                            color: #fff;
+                            background-color: transparent;
+                            text-decoration: none;
+                            line-height: 29px;
+                        }</style>
+                        <button class="wxbtn2">
+                            前往茄子TV小程序
+                        </button>
+                        <!--                            </script>-->
+                        <!--                        </wx-open-launch-weapp>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fab-reward" onclick="showJumpModal()">
+        <div class="fab"><img
+                src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/202009/heat_reward.png"
+                alt="reward"/></div>
+    </div>
+    <div class="fab-rank" onclick="showJumpModal()">
+        <div class="fab"><img
+                src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/202009/gift_rank.png"
+                alt="reward"/></div>
+    </div>
+    <div id="disable-modal" class="modal">
+        <div class="modal__overlay"></div>
+        <div class="modal__container">
+            <div class="modal__content">
+                <div class="center">
+                    <div class="jump-modal-logo"><img
+                            src="https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png"
+                            alt="logo"/></div>
+                </div>
+                <span class="center jump-modal-hint">请使用手机打开网页链接</span>
+            </div>
+        </div>
+    </div>
+    <div id="share-guide" class="modal">
+        <div class="modal__overlay"></div>
+        <div id="share-guide-content" class="modal__container-guide">
+            <div class="modal__container-guide-wechat"
+                 style="background: url('https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/guide.png') no-repeat;background-size: 100% 50vh;">
+            </div>
+            <div class="heat-footer-right__button-wrapper" style="width: 50%" onclick="hideGuideModal()">
+                <button class="heat-footer-right__button"></button>
+                <div class="heat-footer-right__button-text">我知道了</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
