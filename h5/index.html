@@ -72,7 +72,7 @@
             //         <div class="heat-footer-right__button-text">我知道了</div>
             //     </div>`)
             // }
-            if (true) {
+            if (isWeixin) {
                 var pageHeader = document.getElementById('page-header');
                 pageHeader.classList.add('hidden');
                 var heatScrollView = document.getElementById('heat-scroll-view');
@@ -115,7 +115,7 @@
                     dataType: "json",
                     data: {url: encodeURIComponent(location.href.split('#')[0])},
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             wx.config({
                                 debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                                 appId: res.data.appId, // 必填，公众号的唯一标识
@@ -297,7 +297,7 @@
             if (leagueId) {
                 $.ajax({
                     url: "https://www.qiezizhibo.com/service-football/league/" + leagueId, success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var leagueData = res.data;
                             var leagueHeadImgEl = document.getElementById('league-headImg')
                             var leagueNameEl = document.getElementById('league-name')
@@ -350,7 +350,7 @@
                 $.ajax({
                     url: "https://www.qiezizhibo.com/service-football/heat/league?leagueId=" + leagueId,
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var heatData = res.data;
                             var leagueTeamEl = document.getElementById('league-team')
                             var leaguePlayerEl = document.getElementById('league-player')
@@ -426,7 +426,7 @@
                     dataType: "json",
                     data: param,
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var playerHeatData = res.data;
                             var heatPeopleEl = document.getElementById('heat-people')
                             heatPeopleEl.innerHTML = playerHeatData.total;
@@ -450,7 +450,7 @@
                     dataType: "json",
                     data: param,
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var totalHeatData = res.data;
                             var heatTotalEl = document.getElementById('heat-total')
                             heatTotalEl.innerHTML = totalHeatData;
@@ -477,7 +477,7 @@
                     dataType: "json",
                     data: param,
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var playerHeatData = res.data;
                             var heatPeopleEl = document.getElementById('heat-people')
                             heatPeopleEl.innerHTML = playerHeatData.total;
@@ -552,7 +552,7 @@
                     dataType: "json",
                     data: param,
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var teamHeatData = res.data;
                             var heatPeopleEl = document.getElementById('heat-people')
                             heatPeopleEl.innerHTML = teamHeatData.total;
@@ -576,7 +576,7 @@
                     dataType: "json",
                     data: param,
                     success: function (res) {
-                        if (res && res.data) {
+                        if (res && res.data != null) {
                             var totalHeatData = res.data;
                             var heatTotalEl = document.getElementById('heat-total')
                             heatTotalEl.innerHTML = totalHeatData;
