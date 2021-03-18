@@ -111,7 +111,7 @@
                 //     console.log('开放标签 fail', e.detail);
                 // });
                 $.ajax({
-                    url: "https://www.qiezizhibo.com/service-system/system/wx/mp/jsapi",
+                    url: "https://www.qiezizhibo.com/service-admin/sys/wx/mp/jsapi",
                     dataType: "json",
                     data: {url: encodeURIComponent(location.href.split('#')[0])},
                     success: function (res) {
@@ -309,16 +309,16 @@
                             } else {
                                 heatHeadImg = "https://qiezizhibo-1300664818.cos.ap-shanghai.myqcloud.com/images/20200330/logo-tiyu.png";
                             }
-                            if (leagueData.shortname) {
-                                leagueNameEl.innerHTML = leagueData.shortname;
-                                heatName = "【人气评选活动】" + leagueData.shortname;
+                            if (leagueData.shortName) {
+                                leagueNameEl.innerHTML = leagueData.shortName;
+                                heatName = "【人气评选活动】" + leagueData.shortName;
                             } else if (leagueData.name) {
                                 leagueNameEl.innerHTML = leagueData.name;
                                 heatName = "【人气评选活动】" + leagueData.name;
                             }
                             getLeagueHeatInfo(leagueData);
                             $.ajax({
-                                url: "https://www.qiezizhibo.com/service-system/system/share/sentence",
+                                url: "https://www.qiezizhibo.com/service-system/sys/share/sentence",
                                 success: function (shareSentenceRes) {
                                     if (shareSentenceRes && shareSentenceRes.data) {
                                         var shareSentence = random_weight(shareSentenceRes.data.filter(value => value.type === 1).map(value => {
